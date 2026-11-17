@@ -5,7 +5,8 @@ export type RansomGame = Pick<Game, 'engine' | 'playerTreasuries'>;
 /**
  * Pays `player` `gold` for the barbarian leader `leader` and says so (`barbarians:ransom`: player, leader, gold).
  * Whichever rule decides that a leader is ransomed, and for how much, pays through this, so the gold and the notice are
- * the same for every rule set.
+ * the same for every rule set. A player with no gold treasury to pay into is paid nothing, and nothing is said
+ * (civ-clone/web-renderer#963).
  */
 export declare const payRansom: (
   game: RansomGame,

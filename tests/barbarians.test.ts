@@ -261,6 +261,19 @@ describe('payRansom', (): void => {
     ).equal(150);
     expect(heard).eql([[player, leader, 150]]);
   });
+
+  it('pays nothing, and says nothing, to a player with no treasury (civ-clone/web-renderer#963)', async (): Promise<void> => {
+    const game = new Game(),
+      player = new Player(game.rules),
+      heard: unknown[][] = [];
+
+    game.engine.on('barbarians:ransom', (...args: unknown[]) =>
+      heard.push(args)
+    );
+
+    expect(() => payRansom(game, player, {} as Unit, 150)).not.throw();
+    expect(heard).eql([]);
+  });
 });
 
 describe('waterBodyHasAtLeast', (): void => {
